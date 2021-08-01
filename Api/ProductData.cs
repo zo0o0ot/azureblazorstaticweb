@@ -23,21 +23,24 @@ namespace Api
                 Id = 10,
                 Name = "Strawberries",
                 Description = "16oz package of fresh organic strawberries",
-                Quantity = 1
+                Quantity = 1,
+                Brand = "Driscoll"
             },
             new Product
             {
                 Id = 20,
                 Name = "Sliced bread",
                 Description = "Load of fresh sliced wheat bread",
-                Quantity = 1
+                Quantity = 1,
+                Brand = "Wonder Bread"
             },
             new Product
             {
                 Id = 30,
                 Name = "Apples",
                 Description = "Bag of 7 fresh McIntosh apples",
-                Quantity = 1
+                Quantity = 1,
+                Brand = "Cascadia"
             }
         };
 
