@@ -23,7 +23,7 @@ namespace Api
                 Id = 10,
                 Name = "Super Awesome Fun",
                 Participants = "Tilo, AJ, Ross",
-                PlayersDrafted = 0,
+                PlayersDrafted = "0",
                 Sport = "Fantasy Football"
             },
             new Draft
@@ -31,7 +31,7 @@ namespace Api
                 Id = 20,
                 Name = "Leagify",
                 Participants = "Tilo, AJ, Jared, Ross",
-                PlayersDrafted = 0,
+                PlayersDrafted = "0",
                 Sport = "Fantasy NFL Draft"
             },
             new Draft
@@ -39,7 +39,7 @@ namespace Api
                 Id = 30,
                 Name = "Rings",
                 Participants = "Tilo, AJ, Ross",
-                PlayersDrafted = 0,
+                PlayersDrafted = "0",
                 Sport = "Fantasy Olympics"
             }
         };
