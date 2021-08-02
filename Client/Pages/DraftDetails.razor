@@ -1,0 +1,99 @@
+﻿@page "/draft/{draftId:int}"
+@inject HttpClient http
+@inject NavigationManager navigation
+
+@if (draft == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <div class="card edit-detail">
+        <header class="card-header">
+            <p class="card-header-title">
+                @draft.Name
+            </p>
+        </header>
+        <div class="card-content">
+            <div class="content">
+                @if (draft.Id != 0)
+                {
+                    <label class="label" for="id">id</label>
+                    <input name="id"
+                           class="input"
+                           value="@draft.Id"
+                           readonly="readonly" />
+                }
+                <InputDetail Name="name"
+                             Placeholder="Oranges"
+                             @bind-Value="draft.Name" />
+                <InputDetail Name="description"
+                             Placeholder="box"
+                             @bind-Value="draft.PlayersDrafted" />
+                <InputDetail Name="brand"
+                             Placeholder="box"
+                             @bind-Value="draft.Sport" />
+                <div class="field">
+                    <label class="label" for="quantity">
+                        quantity
+                    </label>
+                    <input name="quantity"
+                           class="input"
+                           type="number"
+                           min="1"
+                           max="100"
+                           value="@draft.Quantity"
+                           placeholder="1"
+                           @onchange="@(e => draft.Quantity = int.Parse(e.Value.ToString()))" />
+                </div>
+            </div>
+        </div>
+        <footer class="card-footer ">
+            <ButtonFooter Class="cancel-button"
+                          IconClasses="fas fa-undo"
+                          OnClick="@CancelDraft"
+                          Label="Cancel" />
+            <ButtonFooter Class="save-button"
+                          IconClasses="fas fa-save"
+                          OnClick="@Save"
+                          Label="Save" />
+        </footer>
+    </div>
+}
+
+@code {
+    private Draft draft;
+
+    [Parameter] public int DraftId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (DraftId == 0)
+        {
+            draft = new Draft();
+        }
+        else
+        {
+            var drafts = await http.GetFromJsonAsync<IEnumerable<Draft>>("api/drafts");
+            draft = drafts.First(p => p.Id == DraftId);
+        }
+    }
+
+    private void CancelDraft()
+    {
+        navigation.NavigateTo("/");
+    }
+
+    private async Task Save()
+    {
+        if (draft.Id == 0)
+        {
+            await http.PostAsJsonAsync("api/drafts", draft);
+        }
+        else
+        {
+            await http.PutAsJsonAsync("api/drafts", draft);
+        }
+        navigation.NavigateTo("/");
+    }
+}
