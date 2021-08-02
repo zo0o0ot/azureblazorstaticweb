@@ -130,6 +130,20 @@ div.card-content {
         color: #999;
     }
 
+    div.card-draft-content {
+        background-color: #fafafa;
+    }
+    
+        div.card-draft-content .name {
+            font-size: 28px;
+            color: #000;
+        }
+    
+        div.card-draft-content .description {
+            font-size: 20px;
+            color: #999;
+        }
+
 .card {
     margin-bottom: 2em;
 }
