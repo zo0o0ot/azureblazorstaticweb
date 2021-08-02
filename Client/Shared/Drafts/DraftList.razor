@@ -1,0 +1,45 @@
+﻿@if (!string.IsNullOrEmpty(ErrorMessage))
+{
+    <div>@ErrorMessage</div>
+}
+else if (Drafts != null && Drafts.Count() > 0)
+{
+    <ul class="list">
+        @foreach (var draft in Drafts)
+        {
+            <li role="presentation">
+                <div class="card">
+                    <CardDraftContent   Name="@draft.Name"
+                                        PlayersDrafted="@draft.PlayersDrafted"
+                                        Sport="@draft.Sport" />
+
+                    <footer class="card-footer">
+
+                        <ButtonFooter Class="delete-item"
+                                      IconClasses="fas fa-trash"
+                                      OnClick="@(async _ => await DeleteDraft.InvokeAsync(draft))"
+                                      Label="Delete" />
+
+                        <ButtonFooter Class="edit-item"
+                                      IconClasses="fas fa-edit"
+                                      OnClick="@(async _ => await SelectDraft.InvokeAsync(draft))"
+                                      Label="Edit" />
+
+                    </footer>
+
+                </div>
+
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <div>Loading data...</div>
+}
+@code {
+    [Parameter] public IEnumerable<Draft> Drafts { get; set; }
+    [Parameter] public EventCallback<Draft> DeleteDraft { get; set; }
+    [Parameter] public EventCallback<Draft> SelectDraft { get; set; }
+    [Parameter] public string ErrorMessage { get; set; }
+}

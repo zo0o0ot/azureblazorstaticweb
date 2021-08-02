@@ -1,0 +1,13 @@
+﻿<div class="card-draft-content">
+    <div class="content">
+        <div class="name">@Name</div>
+        <div class="description">@PlayersDrafted</div>
+        <div class="brand">@Sport</div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public string Name { get; set; }
+    [Parameter] public int PlayersDrafted { get; set; }
+    [Parameter] public string Sport { get; set; }
+}

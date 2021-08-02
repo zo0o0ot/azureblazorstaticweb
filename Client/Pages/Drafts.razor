@@ -1,0 +1,72 @@
+@page "/drafts"
+@inject HttpClient http
+@inject NavigationManager navigation
+
+<div class="content-container">
+    <ListHeader Title="My List"
+                HandleAdd="@AddNewDraft"
+                HandleRefresh="@HandleRefresh"
+                RoutePath="/drafts" />
+    <div class="columns is-multiline is-variable">
+        <div class="column is-8">
+            <DraftList ErrorMessage="@errorMessage"
+                         Drafts="@drafts"
+                         SelectDraft="@SelectDraft"
+                         DeleteDraft="@DeleteDraft" />
+        </div>
+    </div>
+
+    <ModalYesNo Message="@modalMessage"
+                OnNo="@CloseModal"
+                OnYes="@DeleteFromModal"
+                Show="@showModal"/>
+</div>
+
+@code {
+    private string errorMessage = "";
+    private IEnumerable<Draft> drafts;
+    private Draft draftToDelete;
+    private bool showModal;
+    private string modalMessage = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        drafts = await http.GetFromJsonAsync<IEnumerable<Draft>>("api/drafts");
+    }
+
+    private void AddNewDraft()
+    {
+        navigation.NavigateTo("/draft/0");
+    }
+
+    private async Task HandleRefresh()
+    {
+        drafts = await http.GetFromJsonAsync<IEnumerable<Draft>>("api/drafts");
+    }
+
+    private void SelectDraft(Draft draft)
+    {
+        navigation.NavigateTo($"/draft/{draft.Id}");
+    }
+
+    private void DeleteDraft(Draft draft)
+    {
+        draftToDelete = draft;
+        showModal = true;
+        modalMessage = $"Would you like to delete {draftToDelete.Name}";
+    }
+
+    private void CloseModal()
+    {
+        draftToDelete = null;
+        showModal = false;
+    }
+
+    private async Task DeleteFromModal()
+    {
+        await http.DeleteAsync($"api/drafts/{draftToDelete.Id}");
+        await HandleRefresh();
+        draftToDelete = null;
+        showModal = false;
+    }
+}
