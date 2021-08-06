@@ -45,9 +45,20 @@
         products = await http.GetFromJsonAsync<IEnumerable<Product>>("api/products");
     }
 
-    private async Task HandleSave()
+    private async void HandleSave()
     {
         var saveToCSV = "";
+        System.Text.StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.AppendLine("Id,FirstName,LastName");
+        @* foreach (var author in list)
+        {
+            stringBuilder.AppendLine($"{author.Id},{author.FirstName},{ author.LastName}");
+        } *@
+        // create CSV string
+        stringBuilder.AppendLine("1,Dude,Perfect");
+
+        var csvString = stringBuilder.ToString();
+        return;
     }
 
     private void SelectProduct(Product product)
