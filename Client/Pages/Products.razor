@@ -6,6 +6,7 @@
     <ListHeader Title="My List"
                 HandleAdd="@AddNewProduct"
                 HandleRefresh="@HandleRefresh"
+                HandleSave="@HandleSave"
                 RoutePath="/products" />
     <div class="columns is-multiline is-variable">
         <div class="column is-8">
@@ -42,6 +43,11 @@
     private async Task HandleRefresh()
     {
         products = await http.GetFromJsonAsync<IEnumerable<Product>>("api/products");
+    }
+
+    private async Task HandleSave()
+    {
+        var saveToCSV = "";
     }
 
     private void SelectProduct(Product product)

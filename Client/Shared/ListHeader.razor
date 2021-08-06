@@ -14,6 +14,11 @@
                 aria-label="refresh">
             <i class="fas fa-sync" aria-hidden="true" />
         </button>
+        <button class="button save-button"
+                @onclick="HandleSave"
+                aria-label="save">
+            <i class="fas fa-save" aria-hidden="true" />
+        </button>
     }
 
 </div>
@@ -23,5 +28,6 @@
     [Parameter] public string RoutePath { get; set; }
     [Parameter] public EventCallback HandleAdd { get; set; }
     [Parameter] public EventCallback HandleRefresh { get; set; }
+    [Parameter] public EventCallback HandleSave { get; set; }
     [Parameter] public bool HideAdd { get; set; }
 }

@@ -6,6 +6,7 @@
     <ListHeader Title="My List"
                 HandleAdd="@AddNewDraft"
                 HandleRefresh="@HandleRefresh"
+                HandleSave="@HandleSave"
                 RoutePath="/drafts" />
     <div class="columns is-multiline is-variable">
         <div class="column is-8">
@@ -42,6 +43,11 @@
     private async Task HandleRefresh()
     {
         drafts = await http.GetFromJsonAsync<IEnumerable<Draft>>("api/drafts");
+    }
+
+    private async Task HandleSave()
+    {
+        var saveToCSV = "";
     }
 
     private void SelectDraft(Draft draft)
