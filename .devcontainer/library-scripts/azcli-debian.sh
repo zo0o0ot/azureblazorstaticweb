@@ -32,4 +32,10 @@ curl -sSL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > /u
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/microsoft-archive-keyring.gpg] https://packages.microsoft.com/repos/azure-cli/ ${VERSION_CODENAME} main" > /etc/apt/sources.list.d/azure-cli.list
 apt-get update
 apt-get install -y azure-cli
+# Install Azure functions core tools
+wget -q https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb
+dpkg -i packages-microsoft-prod.deb
+apt-get update
+apt-get install -y aspnetcore-runtime-3.1
+apt-get install azure-functions-core-tools-3
 echo "Done!"
